@@ -8,6 +8,9 @@ session_start();
 if(!$_SESSION['email']){
     header("Location: http://localhost/GlowGuru/index.php");
 }
+if(!empty($_SESSION['email'])){
+  echo "hi";
+}
 if(isset($_POST['logout'])){
     session_destroy();
     header("Location: http://localhost/GlowGuru/index.php");

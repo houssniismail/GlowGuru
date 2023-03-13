@@ -2,21 +2,17 @@
 require_once("./connection.php");
 
 class update extends database{
-    public function updateProduct($value1,$value2,$value3,$value4,$value5,$id){
-        //l'apple de class database
-        $db = new database();
-       //l'apple de function "connect()" entre database cette function return un value "$pdo"
-        $pdo = $db->connect();
-        // c'est le requet de mdifiction sur un produit 
-        $requet = "UPDATE `products` SET 
-        `image`='$value1',`name`='$value2',`description`='$value3',`prix`='$value4',`quentite`='$value5' 
-        WHERE id = $id";
-        // preparer est un function que preparer le requet est stoque dans $exe
-        $exe = $pdo->prepare($requet);
-        // executer la requet
-        $exe->execute();
+
+    public function update_product($value1, $value2, $value3, $value4,$value5,$id){
+       $data = new database();
+       $prod=$data->connect();
+       $query = "UPDATE `products` SET `image`='$value1',`name`='$value2',`description`='$value3',`prix`='$value4',`quentite`='$value5' WHERE `id`=$id";
+       $exe = $prod->prepare($query);
+       $exe->execute();
     }
 }
+
+
 class confermUpdate extends update{
     function addPic(){
         if(isset($_FILES['value1'])){
@@ -47,7 +43,6 @@ class confermUpdate extends update{
 
     public function updatePro(){
       if(isset($_POST['id'])){
-        
         if(isset($_FILES['value1'])&&$_FILES['value1']['error']===0){
         $id=$_POST['id'];
         $value1 = $this->addPic();
@@ -55,10 +50,9 @@ class confermUpdate extends update{
         $value3 = $_POST["value3"];
         $value4 = $_POST["value4"];
         $value5 = $_POST["value5"];
-
         $update = new update();
-        $update->updateProduct($value1,$value2,$value3,$value4,$value5,$id);
-        header("Location: http://localhost/GlowGuru/selectproduct.php"); 
+        $update->update_product($value1,$value2,$value3,$value4,$value5,$id);
+        header("Location: http://localhost/GlowGuru/selectproduct.php");
         }
         }
       }

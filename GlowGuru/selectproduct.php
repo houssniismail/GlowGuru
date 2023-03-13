@@ -20,6 +20,7 @@ require_once('./reqSelect.php');
 $product = new select();
 $select = $product->afficher();
 // var_dump($select);
+// echo count($select);
 
 ?>
 
@@ -30,6 +31,7 @@ $select = $product->afficher();
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="./css/main.css" rel="stylesheet">
+    <link href="./styles/" rel="stylesheet">
     <title>Document</title>
 </head>
 <body>
@@ -47,7 +49,10 @@ $select = $product->afficher();
     </button>
     <div class="hidden w-full md:block md:w-auto" id="mobile-menu">
       <ul class="flex flex-col mt-4 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium">
-        <li>
+      <li>
+          <a href="./index.php" class="block py-2 pr-4 pl-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white" aria-current="page">Home</a>
+        </li>
+      <li>
           <a href="./selectproduct.php" class="block py-2 pr-4 pl-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white" aria-current="page">show product</a>
         </li>
         <li>
@@ -68,8 +73,16 @@ $select = $product->afficher();
     </div>
   </div>
 </nav>
-<a href="./addProduct.php" class="px-6 py-3 text-blue-100 relative no-underline bg-blue-500 rounded hover:bg-blue-600 hover:underline hover:text-blue-200" style="position: relative; top: 30px;">Add</a>
-<table class="table_of_product table-auto ml-auto mr-auto relative" style="    position: relative; top: 50px;">
+<div>
+<a href="./addProduct.php" class="px-6 py-3 text-blue-100 mr-auto ml-auto mt no-underline bg-blue-500 rounded hover:bg-blue-600 hover:underline hover:text-blue-200" style="position: relative; top: 30px;">Add</a>
+</div>
+<div class=" mr-auto mt-10 ml-auto">
+  <h1>total products</h1>
+  <p>
+   <?php echo count($select);?>
+  </p>
+</div>
+<table class="table_of_product table-auto ml-auto mr-auto relative" style="position: relative; top: 50px;">
     <thead class="bg-white border-b md:w-32 lg:w-48" >
         <tr>
             <th class="text-sm font-medium text-gray-900 px-6 py-4 text-left">id</th>
@@ -83,6 +96,7 @@ $select = $product->afficher();
     </thead>
     <tbody>
         <?php foreach($select as $elements):?>
+          
         <tr class="bg-gray-100 border-b md:w-32 lg:w-48">
             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"><?php echo $elements['id'] ;?></td>
             <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap"><img src="<?php echo $elements['image'] ; ?>" alt="" class=" w-10"></td>
@@ -99,7 +113,7 @@ $select = $product->afficher();
                 </form>
                 <form method="POST" action="./selectOneProduct.php">
                   <input type="hidden" name="id" value="<?php echo $elements['id'] ;?>">
-                  <button>update</button>
+                  <button name="submit">update</button>
                 </form>
             </td>
         </tr>

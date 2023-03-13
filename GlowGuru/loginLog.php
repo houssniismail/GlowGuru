@@ -12,12 +12,14 @@ class login extends database{
         if(!$result){
             header('Location: http://localhost/GlowGuru/login.php');
         }
-        else{
+        else {
             session_start();
             header('Location: http://localhost/GlowGuru/addProduct.php');
             $_SESSION['email']=$email;
-            return  $_SESSION['email'];
+            return  $_SESSION['email'];     
         }
+
+        
     }
 
 }
@@ -34,6 +36,8 @@ class entrer extends login{
        }
     }
 }
+
 $adm = new entrer();
 $adm-> entr();
+
 ?>
